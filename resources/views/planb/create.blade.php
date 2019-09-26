@@ -1,0 +1,104 @@
+@extends('layouts.app')
+
+@section('content')
+  <section class="section">
+      <div class="container">
+          <div class="columns is-mobile">
+            <div class="column is-half is-offset-one-quarter">
+              <div>
+                  <h2 class="title is-3">
+                    Sign Up for 20 Plus people
+                </h2> <br> <br>
+              </div>
+            </div>
+          </div>
+      </div>
+  </section>
+  <section class="section">
+      <div class="container">
+          <div class="columns">
+            <div class="column">
+              <div class="content">
+                  <h1>How does it work?</h1>
+                  <p>
+                    @if(count($discounttwo))
+                      @foreach($discounttwo as $discounttw)
+                        Add your name to the group to {{ $discounttw->university }} list by midnight 
+                        <strong>{{ $discounttw->enddate }}</strong>. {{ $discounttw->discountrules }}.
+                      @endforeach
+                    @endif  
+                    Fill up the form and our dedicated team will get in touch with you.
+                  </p>
+                </div>
+            </div>
+            <div class="column">
+              <form method="POST" action="{{ route('twenty.store') }}">
+                @csrf
+                <div class="field is-horizontal">
+                    <div class="field-body">
+                      <div class="field">
+                        <p class="control is-expanded has-icons-left">
+                          <input class="input is-medium" type="text" name="firstname" value="{{ old('firstname') }}" placeholder="first-name">
+                        </p>
+                        <div>{{ $errors->first('firstname') }}</div>
+                      </div>
+                      <div class="field">
+                        <p class="control is-expanded has-icons-left has-icons-right">
+                          <input class="input is-medium" type="text" name="lastname" value="{{ old('lastname') }}" placeholder="last-name">
+                        </p>
+                        <div>{{ $errors->first('lastname') }}</div>
+                      </div>
+                    </div>
+                </div>
+                <div class="field">
+                  <div class="control is-medium">
+                    <input class="input is-medium" type="email" name="email" value="{{ old('email') }}" placeholder="email">
+                  </div>
+                  <div>{{ $errors->first('email') }}</div>
+                </div>
+                <div class="field">
+                  <div class="control is-medium">
+                    <button class="button is-link is-medium is-fullwidth">Submit Payment</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div> <br><br>
+          <div class="columns">
+            <div class="column">
+              <div class="content">
+                  <h1>20 Person Group 20% OFF</h1>
+                  <p>
+                    Regular price for AMBOSS Plus: <br>
+
+                  </p>
+                  <div class="column is-half">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th width="50%"><abbr title="Played">Price</abbr></th>
+                              <th width="50%"><abbr title="Won">Validity</abbr></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                <tr class="bg-grey-darkest">
+                                    <td width="50%">$235</td>
+                                    <td width="50%">6 Months</td>
+                                </tr>
+                                <tr class="bg-grey-darkest">
+                                    <td>$365</td>
+                                    <td>for 12 Months</td>
+                                </tr>
+                                <tr class="bg-grey-darkest">
+                                    <td>$235</td>
+                                    <td>6 Months</td>
+                                </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+          </div>  
+      </div>
+  </section>
+@endsection

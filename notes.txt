@@ -1,0 +1,99 @@
+Step 1
+landing page with all the discounts
+a sign up btn
+
+step 2
+a multi step signup form
+
+first step, choose your package like cadstraining, select package to sign up for
+
+then do jquery - add multiple participants with [Uni, Names, specific class]
+with option to add as many people as possible -  for us being 10
+
+
+then route to a payment gateway
+
+backend side
+
+admin dashboard
+
+manage the db tables from there,
+
+have a roles for sales team, admin, and
+
+
+// $data = $request()->validate([
+// ])
+// Checkout::create($data);
+
+$request->validate([
+    'email' => 'required|email',
+    'address' => 'required|max:255',
+    'city' => 'required|max:255',
+    'state' => 'required|max:200',
+    'country' => 'required|max:255',
+    'phone' => 'required|max:200',
+    'name_on_card' => 'required|max:160',
+    'card_number' => 'required|max:200',
+    'validity' => 'required|max:200',
+    'cvc' => 'required|max:200'
+]);
+
+$payments = new Checkout([
+'email'=> $request->get('email'),
+'address'=> $request->get('address'),
+'city'=> $request->get('city'),
+'state'=> $request->get('state'),
+'country'=> $request->get('country'),
+'phone'=> $request->get('phone'),
+'name_on_card' => $request->get('name_on_card'),
+'card_number'=> $request->get('card_number'),
+'validity'=> $request->get('validity'),
+'cvc'=> $request->get('cvc')
+]);
+
+$payments->save();
+
+
+
+php artisan make:model TenGroup -mcr
+php artisan make:model TwentyGroup -mcr
+php artisan make:model ThirtyGroup -mcr
+php artisan make:model FiftyGroup -mcr
+
+
+
+php artisan make:controller Admin\\UserController -r
+
+php artisan make:model Role -m
+
+php artisan db:seed UsersTableSeeder
+
+php artisan make:migration create_role_user_table
+
+
+php artisan make:migration add_columns_to_users
+
+
+<div class="navbar-end">
+    @if (Auth::guest())
+        <a class="navbar-item button" href="{{ route('login') }}">Login</a>
+        <a class="navbar-item button" href="{{ route('register') }}">Register</a>
+    @else
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="#">{{ Auth::user()->name }}</a>
+
+            <div class="navbar-dropdown">
+                <a class="navbar-item" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                      style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            </div>
+        </div>
+    @endif
+</div>
